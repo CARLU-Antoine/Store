@@ -27,12 +27,13 @@ namespace store.Services
             }
         }
 
-        public byte[] Get3DModel(string productId)
+        public byte[]? Get3DModel(string productId)
         {
             string modelPath = Path.Combine(_modelsFolder, $"{productId}.glb");
             if (!File.Exists(modelPath))
-                return null;  // <-- ici le warning, car byte[] peut être null
+                return null;  // OK maintenant, car byte[]? accepte null
             return File.ReadAllBytes(modelPath);
         }
+
     }
 }

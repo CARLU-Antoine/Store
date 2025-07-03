@@ -31,6 +31,9 @@ export class NavbarComponent {
     this.router.navigate(['/home']);
   }
 
+  goToCreation() {
+    this.router.navigate(['/creation-produit']);
+  }
 
   goToLogin() {
     this.router.navigate(['/login']);

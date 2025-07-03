@@ -1,20 +1,21 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   BaseComponent
-} from "./chunk-MYFX3YFP.js";
+} from "./chunk-ILKPN2HG.js";
 import {
   BaseStyle
-} from "./chunk-P37AKTNB.js";
+} from "./chunk-PMVAKO7F.js";
 import {
   PrimeTemplate,
   SharedModule
-} from "./chunk-VN655IDD.js";
+} from "./chunk-ESY7XJTE.js";
 import {
   CommonModule,
   NgClass,
   NgIf,
   NgTemplateOutlet
-} from "./chunk-YT24NAFA.js";
+} from "./chunk-QMFFVGRQ.js";
+import "./chunk-MDBGJBN5.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -52,10 +53,10 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-PXXRCHXC.js";
+} from "./chunk-7WBKHFXQ.js";
 import "./chunk-YHCV7DAQ.js";
 
-// node_modules/primeng/fesm2022/primeng-tag.mjs
+// ../../../node_modules/primeng/fesm2022/primeng-tag.mjs
 var _c0 = ["icon"];
 var _c1 = ["*"];
 function Tag_ng_container_1_span_1_Template(rf, ctx) {

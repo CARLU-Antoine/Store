@@ -28,7 +28,7 @@
 .login-container p-card .p-card-body,
 .login-container .p-card .p-card-body,
 .login-container p-card::ng-deep .p-card-body {
-  background-color: rgba(255, 255, 255, 0.2) !important;
+  background-color: whitesmoke !important;
   backdrop-filter: blur(10px);
   padding: 0;
 }
@@ -57,6 +57,7 @@
   font-weight: 600;
   letter-spacing: -0.5px;
   position: relative;
+  color: black;
 }
 
 .login-container h2::after {
@@ -83,10 +84,16 @@
 
 .login-container label {
   display: block;
+  color: black;
   margin-bottom: 0.5rem;
   font-weight: 500;
   font-size: 0.9rem;
   letter-spacing: 0.3px;
+}
+
+.login-container input{
+  color: black;
+  background-color: white;
 }
 
 
@@ -122,6 +129,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   user-select: none;
+  color: black;
 }
 
 
