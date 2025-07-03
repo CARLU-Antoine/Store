@@ -1,0 +1,142 @@
+/* Container principal */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  height: 80vh;
+}
+
+/* Card de connexion */
+.login-container p-card {
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Cibler les classes internes PrimeNG avec plus de spécificité */
+.login-container p-card .p-card {
+  background: transparent !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+}
+
+/* Plusieurs façons de forcer la couleur de fond */
+.login-container p-card .p-card-body,
+.login-container .p-card .p-card-body,
+.login-container p-card::ng-deep .p-card-body {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(10px);
+  padding: 0;
+}
+
+.login-container p-card .p-card-content,
+.login-container .p-card .p-card-content {
+  background: transparent !important;
+  padding: 0;
+}
+
+/* Alternative avec ::ng-deep si les autres ne fonctionnent pas */
+.login-container ::ng-deep .p-card-body {
+  background-color: #667eea !important;
+}
+
+/* Solution de dernier recours - cibler directement */
+.login-container p-card > div > div {
+  background-color: #667eea !important;
+}
+
+/* En-tête */
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  position: relative;
+}
+
+.login-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+}
+
+/* Formulaire */
+.login-container form {
+  padding: 2rem;
+}
+
+/* Champs de formulaire */
+.login-container .field {
+  margin-bottom: 1.5rem;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+
+.login-container input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+
+
+/* Messages d'erreur */
+.login-container .p-error {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+  font-weight: 500;
+}
+
+/* Checkbox "Se souvenir de moi" */
+.login-container .field-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+}
+
+
+.login-container .field-checkbox label {
+  margin-bottom: 0;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+.login-container p-button button,
+.login-container ::ng-deep p-button .p-button {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(90deg, #667eea, #764ba2) !important;
+  border: none !important;
+  border-radius: 8px;
+  color: white !important;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
