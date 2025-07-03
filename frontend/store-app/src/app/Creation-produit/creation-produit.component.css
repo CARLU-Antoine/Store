@@ -1,0 +1,138 @@
+.container-creation-affichage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    max-height: 80vh;
+    overflow: hidden;
+    width: 100%;
+}
+
+#titre-produit,p{
+    color: black;
+    text-align: center;
+}
+
+.container-creation-produit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    height: 80vh;
+  }
+  
+
+  .container-creation-produit p-card {
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  
+  /* Cibler les classes internes PrimeNG avec plus de spécificité */
+  .container-creation-produit p-card .p-card {
+    background: transparent !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid black;
+    border-radius: 16px;
+  }
+  
+  /* Plusieurs façons de forcer la couleur de fond */
+  .container-creation-produit p-card .p-card-body,
+  .container-creation-produit .p-card .p-card-body,
+  .container-creation-produit p-card::ng-deep .p-card-body {
+    background-color: whitesmoke !important;
+    border: 1px solid black;
+  }
+  
+  .container-creation-produit p-card .p-card-content,
+  .container-creation-produit .p-card .p-card-content {
+    background: transparent !important;
+    padding: 0;
+  }
+  
+
+  
+  
+  /* Formulaire */
+  .container-creation-produit form {
+    padding: 2rem;
+  }
+  
+  /* Champs de formulaire */
+  .container-creation-produit .field {
+    margin-bottom: 1.5rem;
+  }
+  
+  .container-creation-produit label {
+    display: block;
+    color: black;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+  }
+  
+  .container-creation-produit input{
+    background-color: white;
+    color: black;
+  }
+
+  .text-gray-500,span{
+    color:black;
+  }
+
+  
+  .container-creation-produit input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+  
+  
+  
+  /* Messages d'erreur */
+  .container-creation-produit .p-error {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+    font-weight: 500;
+  }
+  
+  /* Checkbox "Se souvenir de moi" */
+  .container-creation-produit .field-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0.5rem 0;
+  }
+  
+  
+  .container-creation-produit .field-checkbox label {
+    margin-bottom: 0;
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+  }
+  
+  
+  .container-creation-produit p-button button,
+  .container-creation-produit ::ng-deep p-button .p-button {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(90deg, #667eea, #764ba2) !important;
+    border: none !important;
+    border-radius: 8px;
+    color: white !important;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  
+  
