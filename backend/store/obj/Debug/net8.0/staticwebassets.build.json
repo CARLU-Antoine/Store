@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "9343jT1EsusIF+gI2ESP8bYz1dgQ1kA+cjPCC9WeqPU=",
-  "Source": "apple",
-  "BasePath": "_content/apple",
+  "Hash": "3F4vCahehh4qHFUW598cfweRhgzfVYlx3zBMxH8oqdk=",
+  "Source": "store",
+  "BasePath": "_content/store",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
