@@ -1,14 +1,15 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   CommonModule
-} from "./chunk-Y6J7BSPS.js";
+} from "./chunk-YT24NAFA.js";
 import {
   Component,
   Directive,
   Injectable,
   Input,
   NgModule,
-  Subject,
   TemplateRef,
+  require_cjs,
   setClassMetadata,
   ɵɵdefineComponent,
   ɵɵdefineDirective,
@@ -18,7 +19,13 @@ import {
   ɵɵdirectiveInject,
   ɵɵprojection,
   ɵɵprojectionDef
-} from "./chunk-AXFVII4J.js";
+} from "./chunk-PXXRCHXC.js";
+import {
+  __toESM
+} from "./chunk-YHCV7DAQ.js";
+
+// node_modules/primeng/fesm2022/primeng-api.mjs
+var import_rxjs = __toESM(require_cjs(), 1);
 
 // node_modules/primeng/node_modules/@primeuix/utils/dom/index.mjs
 function hasClass(element, className) {
@@ -96,8 +103,24 @@ function setAttributes(element, attributes = {}) {
     });
   }
 }
+function find(element, selector) {
+  return isElement(element) ? Array.from(element.querySelectorAll(selector)) : [];
+}
 function findSingle(element, selector) {
   return isElement(element) ? element.matches(selector) ? element : element.querySelector(selector) : null;
+}
+function getAttribute(element, name) {
+  if (isElement(element)) {
+    const value = element.getAttribute(name);
+    if (!isNaN(value)) {
+      return +value;
+    }
+    if (value === "true" || value === "false") {
+      return value === "true";
+    }
+    return value;
+  }
+  return void 0;
 }
 function getHeight(element) {
   if (element) {
@@ -428,8 +451,8 @@ var ConfirmEventType;
   ConfirmEventType2[ConfirmEventType2["CANCEL"] = 2] = "CANCEL";
 })(ConfirmEventType || (ConfirmEventType = {}));
 var ConfirmationService = class _ConfirmationService {
-  requireConfirmationSource = new Subject();
-  acceptConfirmationSource = new Subject();
+  requireConfirmationSource = new import_rxjs.Subject();
+  acceptConfirmationSource = new import_rxjs.Subject();
   requireConfirmation$ = this.requireConfirmationSource.asObservable();
   accept = this.acceptConfirmationSource.asObservable();
   /**
@@ -470,7 +493,7 @@ var ConfirmationService = class _ConfirmationService {
   }], null, null);
 })();
 var ContextMenuService = class _ContextMenuService {
-  activeItemKeyChange = new Subject();
+  activeItemKeyChange = new import_rxjs.Subject();
   activeItemKeyChange$ = this.activeItemKeyChange.asObservable();
   activeItemKey;
   changeKey(key) {
@@ -735,8 +758,8 @@ var FilterService = class _FilterService {
   }], null, null);
 })();
 var MessageService = class _MessageService {
-  messageSource = new Subject();
-  clearSource = new Subject();
+  messageSource = new import_rxjs.Subject();
+  clearSource = new import_rxjs.Subject();
   messageObserver = this.messageSource.asObservable();
   clearObserver = this.clearSource.asObservable();
   /**
@@ -781,7 +804,7 @@ var MessageService = class _MessageService {
   }], null, null);
 })();
 var OverlayService = class _OverlayService {
-  clickSource = new Subject();
+  clickSource = new import_rxjs.Subject();
   clickObservable = this.clickSource.asObservable();
   add(event) {
     if (event) {
@@ -1294,8 +1317,8 @@ var TranslationKeys = class {
   static BROWSE_FILES = "browseFiles";
 };
 var TreeDragDropService = class _TreeDragDropService {
-  dragStartSource = new Subject();
-  dragStopSource = new Subject();
+  dragStartSource = new import_rxjs.Subject();
+  dragStopSource = new import_rxjs.Subject();
   dragStart$ = this.dragStartSource.asObservable();
   dragStop$ = this.dragStopSource.asObservable();
   startDrag(event) {
@@ -1324,7 +1347,9 @@ export {
   removeClass,
   getOuterWidth,
   setAttributes,
+  find,
   findSingle,
+  getAttribute,
   getHeight,
   getOffset,
   getOuterHeight,
@@ -1363,4 +1388,4 @@ export {
   TranslationKeys,
   TreeDragDropService
 };
-//# sourceMappingURL=chunk-O34L3FLM.js.map
+//# sourceMappingURL=chunk-VN655IDD.js.map
