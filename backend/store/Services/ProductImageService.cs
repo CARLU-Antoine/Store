@@ -30,8 +30,10 @@ namespace store.Services
         public byte[]? Get3DModel(string productId)
         {
             string modelPath = Path.Combine(_modelsFolder, $"{productId}.glb");
+
+            Console.WriteLine($"Récupération du modèle 3D pour le produit {productId} depuis {modelPath}"); 
             if (!File.Exists(modelPath))
-                return null;  // OK maintenant, car byte[]? accepte null
+                return null;
             return File.ReadAllBytes(modelPath);
         }
 
