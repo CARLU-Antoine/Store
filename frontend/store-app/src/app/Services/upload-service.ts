@@ -15,7 +15,11 @@ export class UploadService {
     for (let file of files) {
       formData.append('files', file);
     }
-
+    
     return this.http.post(`${this.baseUrl}/${productId}/upload-images`, formData);
+  }
+  
+  getModelById(productId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${productId}/model`);
   }
 }

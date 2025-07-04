@@ -43,7 +43,8 @@ export class CreationProduitComponent {
     // Formulaire avec des noms de champs appropriés
     this.productForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
-      price: ['', [Validators.required, Validators.min(0.01)]]
+      price: ['', [Validators.required, Validators.min(0.01)]],
+      description: ['', [Validators.required, Validators.minLength(10)]]
     });
 
     // Images initialement vides
@@ -61,13 +62,22 @@ export class CreationProduitComponent {
 
     this.loading = true;
 
-    // Ici tu devrais avoir un vrai productId après création produit,
-    // ici on simule avec le titre (à remplacer)
     const productId = this.productForm.value.title;
 
     this.uploadService.uploadImages(productId, this.selectedFiles).subscribe({
       next: (res) => {
-        alert('Produit créé et images envoyées avec succès');
+        alert(`Produit créé et image envoyées avec succès avec l'id ${productId}`);
+        
+
+        this.uploadService.getModelById(productId).subscribe({
+          next: (model) => {
+            alert(`Model recuperé avec l'id ${productId} et voici le modèle : ${JSON.stringify(model)}`);
+          },
+          error: (err) => {
+            console.error('Error retrieving model:', err);
+          }
+        });
+
         this.loading = false;
       },
       error: (err) => {

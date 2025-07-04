@@ -1,10 +1,11 @@
 <app-navbar></app-navbar>
 
-<h2 id="titre-produit">Création d'un produit</h2>
+
 
 <div class="container-creation-affichage">
   <div class="container-creation-produit">
     <p-card>
+      <h2 id="titre-produit">Création d'un produit</h2>
       <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
         <div class="p-fluid">
           <div class="field">
@@ -25,6 +26,14 @@
             </small>
           </div>
 
+          <div class="field">
+            <label for="description">Description du produit</label>
+            <textarea id="description" rows="5" formControlName="description" pInputTextarea></textarea>
+            <small *ngIf="submitted && f['description'].errors" class="p-error">
+              {{ f['description'].errors?.['required'] ? 'Description requise.' : '' }}
+            </small>
+          </div>
+          
           <div class="field">
             <label>Images du produit</label>
             <div
