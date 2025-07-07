@@ -1,14 +1,20 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  FocusTrap
+} from "./chunk-2AB3OTSA.js";
+import "./chunk-UUBVSJK2.js";
+import {
+  zindexutils
+} from "./chunk-GQ54WHE5.js";
+import {
   animate,
-  sequence,
   style,
   transition,
   trigger
-} from "./chunk-QNRRCH66.js";
+} from "./chunk-6YFGSO6K.js";
 import {
   Ripple
-} from "./chunk-2XTMYDM2.js";
+} from "./chunk-YK4HCO4W.js";
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -17,30 +23,27 @@ import {
   TimesIcon,
   WindowMaximizeIcon,
   WindowMinimizeIcon
-} from "./chunk-M3EZJJX2.js";
+} from "./chunk-4JCIQRUT.js";
 import {
   BaseComponent
-} from "./chunk-ILKPN2HG.js";
+} from "./chunk-ELJ7E5ZZ.js";
 import {
   BaseStyle
-} from "./chunk-PMVAKO7F.js";
+} from "./chunk-R3CBOEER.js";
 import {
   PrimeTemplate,
   SharedModule,
   addClass,
   blockBodyScroll,
-  createElement,
   find,
   findSingle,
   focus,
   getAttribute,
-  getFirstFocusableElement,
-  getLastFocusableElement,
   removeClass,
   setAttribute,
   unblockBodyScroll,
   uuid
-} from "./chunk-ESY7XJTE.js";
+} from "./chunk-ALFDVYZQ.js";
 import {
   CommonModule,
   NgClass,
@@ -48,19 +51,17 @@ import {
   NgIf,
   NgStyle,
   NgTemplateOutlet
-} from "./chunk-QMFFVGRQ.js";
+} from "./chunk-53KWUNRH.js";
 import {
   DOCUMENT,
   isPlatformBrowser
-} from "./chunk-MDBGJBN5.js";
+} from "./chunk-DFIAP3GC.js";
 import {
-  ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
-  Directive,
   ElementRef,
   EventEmitter,
   HostListener,
@@ -72,8 +73,6 @@ import {
   Output,
   PLATFORM_ID,
   Renderer2,
-  RendererFactory2,
-  RuntimeError,
   ViewChild,
   ViewEncapsulation,
   booleanAttribute,
@@ -88,7 +87,6 @@ import {
   ɵɵclassMap,
   ɵɵcontentQuery,
   ɵɵdefineComponent,
-  ɵɵdefineDirective,
   ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
@@ -101,7 +99,6 @@ import {
   ɵɵelementStart,
   ɵɵgetCurrentView,
   ɵɵgetInheritedFactory,
-  ɵɵinject,
   ɵɵlistener,
   ɵɵloadQuery,
   ɵɵnextContext,
@@ -119,345 +116,10 @@ import {
   ɵɵtemplate,
   ɵɵtemplateRefExtractor,
   ɵɵviewQuery
-} from "./chunk-7WBKHFXQ.js";
+} from "./chunk-PXXRCHXC.js";
 import "./chunk-YHCV7DAQ.js";
 
-// ../../../node_modules/@angular/animations/fesm2022/animations.mjs
-var AnimationBuilder = class _AnimationBuilder {
-  static ɵfac = function AnimationBuilder_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _AnimationBuilder)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _AnimationBuilder,
-    factory: () => (() => inject(BrowserAnimationBuilder))(),
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AnimationBuilder, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root",
-      useFactory: () => inject(BrowserAnimationBuilder)
-    }]
-  }], null, null);
-})();
-var AnimationFactory = class {
-};
-var BrowserAnimationBuilder = class _BrowserAnimationBuilder extends AnimationBuilder {
-  animationModuleType = inject(ANIMATION_MODULE_TYPE, {
-    optional: true
-  });
-  _nextAnimationId = 0;
-  _renderer;
-  constructor(rootRenderer, doc) {
-    super();
-    const typeData = {
-      id: "0",
-      encapsulation: ViewEncapsulation.None,
-      styles: [],
-      data: {
-        animation: []
-      }
-    };
-    this._renderer = rootRenderer.createRenderer(doc.body, typeData);
-    if (this.animationModuleType === null && !isAnimationRenderer(this._renderer)) {
-      throw new RuntimeError(3600, (typeof ngDevMode === "undefined" || ngDevMode) && "Angular detected that the `AnimationBuilder` was injected, but animation support was not enabled. Please make sure that you enable animations in your application by calling `provideAnimations()` or `provideAnimationsAsync()` function.");
-    }
-  }
-  build(animation2) {
-    const id = this._nextAnimationId;
-    this._nextAnimationId++;
-    const entry = Array.isArray(animation2) ? sequence(animation2) : animation2;
-    issueAnimationCommand(this._renderer, null, id, "register", [entry]);
-    return new BrowserAnimationFactory(id, this._renderer);
-  }
-  static ɵfac = function BrowserAnimationBuilder_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BrowserAnimationBuilder)(ɵɵinject(RendererFactory2), ɵɵinject(DOCUMENT));
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _BrowserAnimationBuilder,
-    factory: _BrowserAnimationBuilder.ɵfac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BrowserAnimationBuilder, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [{
-    type: RendererFactory2
-  }, {
-    type: Document,
-    decorators: [{
-      type: Inject,
-      args: [DOCUMENT]
-    }]
-  }], null);
-})();
-var BrowserAnimationFactory = class extends AnimationFactory {
-  _id;
-  _renderer;
-  constructor(_id, _renderer) {
-    super();
-    this._id = _id;
-    this._renderer = _renderer;
-  }
-  create(element, options) {
-    return new RendererAnimationPlayer(this._id, element, options || {}, this._renderer);
-  }
-};
-var RendererAnimationPlayer = class {
-  id;
-  element;
-  _renderer;
-  parentPlayer = null;
-  _started = false;
-  constructor(id, element, options, _renderer) {
-    this.id = id;
-    this.element = element;
-    this._renderer = _renderer;
-    this._command("create", options);
-  }
-  _listen(eventName, callback) {
-    return this._renderer.listen(this.element, `@@${this.id}:${eventName}`, callback);
-  }
-  _command(command, ...args) {
-    issueAnimationCommand(this._renderer, this.element, this.id, command, args);
-  }
-  onDone(fn) {
-    this._listen("done", fn);
-  }
-  onStart(fn) {
-    this._listen("start", fn);
-  }
-  onDestroy(fn) {
-    this._listen("destroy", fn);
-  }
-  init() {
-    this._command("init");
-  }
-  hasStarted() {
-    return this._started;
-  }
-  play() {
-    this._command("play");
-    this._started = true;
-  }
-  pause() {
-    this._command("pause");
-  }
-  restart() {
-    this._command("restart");
-  }
-  finish() {
-    this._command("finish");
-  }
-  destroy() {
-    this._command("destroy");
-  }
-  reset() {
-    this._command("reset");
-    this._started = false;
-  }
-  setPosition(p) {
-    this._command("setPosition", p);
-  }
-  getPosition() {
-    return unwrapAnimationRenderer(this._renderer)?.engine?.players[this.id]?.getPosition() ?? 0;
-  }
-  totalTime = 0;
-};
-function issueAnimationCommand(renderer, element, id, command, args) {
-  renderer.setProperty(element, `@@${id}:${command}`, args);
-}
-function unwrapAnimationRenderer(renderer) {
-  const type = renderer.ɵtype;
-  if (type === 0) {
-    return renderer;
-  } else if (type === 1) {
-    return renderer.animationRenderer;
-  }
-  return null;
-}
-function isAnimationRenderer(renderer) {
-  const type = renderer.ɵtype;
-  return type === 0 || type === 1;
-}
-
-// ../../../node_modules/primeng/fesm2022/primeng-focustrap.mjs
-var FocusTrap = class _FocusTrap extends BaseComponent {
-  /**
-   * When set as true, focus wouldn't be managed.
-   * @group Props
-   */
-  pFocusTrapDisabled = false;
-  platformId = inject(PLATFORM_ID);
-  document = inject(DOCUMENT);
-  firstHiddenFocusableElement;
-  lastHiddenFocusableElement;
-  ngOnInit() {
-    super.ngOnInit();
-    if (isPlatformBrowser(this.platformId) && !this.pFocusTrapDisabled) {
-      !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
-    }
-  }
-  ngOnChanges(changes) {
-    super.ngOnChanges(changes);
-    if (changes.pFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
-      if (changes.pFocusTrapDisabled.currentValue) {
-        this.removeHiddenFocusableElements();
-      } else {
-        this.createHiddenFocusableElements();
-      }
-    }
-  }
-  removeHiddenFocusableElements() {
-    if (this.firstHiddenFocusableElement && this.firstHiddenFocusableElement.parentNode) {
-      this.firstHiddenFocusableElement.parentNode.removeChild(this.firstHiddenFocusableElement);
-    }
-    if (this.lastHiddenFocusableElement && this.lastHiddenFocusableElement.parentNode) {
-      this.lastHiddenFocusableElement.parentNode.removeChild(this.lastHiddenFocusableElement);
-    }
-  }
-  getComputedSelector(selector) {
-    return `:not(.p-hidden-focusable):not([data-p-hidden-focusable="true"])${selector ?? ""}`;
-  }
-  createHiddenFocusableElements() {
-    const tabindex = "0";
-    const createFocusableElement = (onFocus) => {
-      return createElement("span", {
-        class: "p-hidden-accessible p-hidden-focusable",
-        tabindex,
-        role: "presentation",
-        "aria-hidden": true,
-        "data-p-hidden-accessible": true,
-        "data-p-hidden-focusable": true,
-        onFocus: onFocus?.bind(this)
-      });
-    };
-    this.firstHiddenFocusableElement = createFocusableElement(this.onFirstHiddenElementFocus);
-    this.lastHiddenFocusableElement = createFocusableElement(this.onLastHiddenElementFocus);
-    this.firstHiddenFocusableElement.setAttribute("data-pc-section", "firstfocusableelement");
-    this.lastHiddenFocusableElement.setAttribute("data-pc-section", "lastfocusableelement");
-    this.el.nativeElement.prepend(this.firstHiddenFocusableElement);
-    this.el.nativeElement.append(this.lastHiddenFocusableElement);
-  }
-  onFirstHiddenElementFocus(event) {
-    const {
-      currentTarget,
-      relatedTarget
-    } = event;
-    const focusableElement = relatedTarget === this.lastHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget) ? getFirstFocusableElement(currentTarget.parentElement, ":not(.p-hidden-focusable)") : this.lastHiddenFocusableElement;
-    focus(focusableElement);
-  }
-  onLastHiddenElementFocus(event) {
-    const {
-      currentTarget,
-      relatedTarget
-    } = event;
-    const focusableElement = relatedTarget === this.firstHiddenFocusableElement || !this.el.nativeElement?.contains(relatedTarget) ? getLastFocusableElement(currentTarget.parentElement, ":not(.p-hidden-focusable)") : this.firstHiddenFocusableElement;
-    focus(focusableElement);
-  }
-  static ɵfac = /* @__PURE__ */ (() => {
-    let ɵFocusTrap_BaseFactory;
-    return function FocusTrap_Factory(__ngFactoryType__) {
-      return (ɵFocusTrap_BaseFactory || (ɵFocusTrap_BaseFactory = ɵɵgetInheritedFactory(_FocusTrap)))(__ngFactoryType__ || _FocusTrap);
-    };
-  })();
-  static ɵdir = ɵɵdefineDirective({
-    type: _FocusTrap,
-    selectors: [["", "pFocusTrap", ""]],
-    inputs: {
-      pFocusTrapDisabled: [2, "pFocusTrapDisabled", "pFocusTrapDisabled", booleanAttribute]
-    },
-    features: [ɵɵInheritDefinitionFeature, ɵɵNgOnChangesFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FocusTrap, [{
-    type: Directive,
-    args: [{
-      selector: "[pFocusTrap]",
-      standalone: true
-    }]
-  }], null, {
-    pFocusTrapDisabled: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }]
-  });
-})();
-var FocusTrapModule = class _FocusTrapModule {
-  static ɵfac = function FocusTrapModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _FocusTrapModule)();
-  };
-  static ɵmod = ɵɵdefineNgModule({
-    type: _FocusTrapModule,
-    imports: [FocusTrap],
-    exports: [FocusTrap]
-  });
-  static ɵinj = ɵɵdefineInjector({});
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FocusTrapModule, [{
-    type: NgModule,
-    args: [{
-      imports: [FocusTrap],
-      exports: [FocusTrap]
-    }]
-  }], null, null);
-})();
-
-// ../../../node_modules/primeng/fesm2022/primeng-utils.mjs
-function ZIndexUtils() {
-  let zIndexes = [];
-  const generateZIndex = (key, baseZIndex) => {
-    let lastZIndex = zIndexes.length > 0 ? zIndexes[zIndexes.length - 1] : {
-      key,
-      value: baseZIndex
-    };
-    let newZIndex = lastZIndex.value + (lastZIndex.key === key ? 0 : baseZIndex) + 2;
-    zIndexes.push({
-      key,
-      value: newZIndex
-    });
-    return newZIndex;
-  };
-  const revertZIndex = (zIndex) => {
-    zIndexes = zIndexes.filter((obj) => obj.value !== zIndex);
-  };
-  const getCurrentZIndex = () => {
-    return zIndexes.length > 0 ? zIndexes[zIndexes.length - 1].value : 0;
-  };
-  const getZIndex = (el) => {
-    return el ? parseInt(el.style.zIndex, 10) || 0 : 0;
-  };
-  return {
-    get: getZIndex,
-    set: (key, el, baseZIndex) => {
-      if (el) {
-        el.style.zIndex = String(generateZIndex(key, baseZIndex));
-      }
-    },
-    clear: (el) => {
-      if (el) {
-        revertZIndex(getZIndex(el));
-        el.style.zIndex = "";
-      }
-    },
-    getCurrent: () => getCurrentZIndex(),
-    generateZIndex,
-    revertZIndex
-  };
-}
-var zindexutils = ZIndexUtils();
-
-// ../../../node_modules/primeng/fesm2022/primeng-galleria.mjs
+// node_modules/primeng/fesm2022/primeng-galleria.mjs
 var _c0 = ["header"];
 var _c1 = ["footer"];
 var _c2 = ["indicator"];
@@ -3659,13 +3321,4 @@ export {
   GalleriaStyle,
   GalleriaThumbnails
 };
-/*! Bundled license information:
-
-@angular/animations/fesm2022/animations.mjs:
-  (**
-   * @license Angular v19.2.14
-   * (c) 2010-2025 Google LLC. https://angular.io/
-   * License: MIT
-   *)
-*/
 //# sourceMappingURL=primeng_galleria.js.map

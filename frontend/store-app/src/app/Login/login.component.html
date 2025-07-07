@@ -1,35 +1,38 @@
 <app-navbar></app-navbar>
+
 <div class="login-container">
-    <p-card>
-        <h2>Connexion</h2>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="p-fluid">
-  
-          <div class="field">
-            <label for="email">Email</label>
-            <input pInputText id="email" formControlName="email" />
-            <small *ngIf="submitted && f['email'].errors" class="p-error">
-                {{ f['email'].errors?.['required'] ? 'Email requis.' : (f['email'].errors?.['email'] ? 'Email invalide.' : '') }}
-              </small>              
-          </div>
-  
-          <div class="field">
-            <label for="password">Mot de passe</label>
-            <input pInputText id="password" type="password" formControlName="password" />
-            <small *ngIf="submitted && f['email'].errors" class="p-error">
-                {{ f['email'].errors?.['required'] ? 'Email requis.' : (f['email'].errors?.['email'] ? 'Email invalide.' : '') }}
-              </small>
-              
-          </div>
-  
-          <div class="field-checkbox">
-            <p-checkbox binary="true" formControlName="remember" inputId="remember"></p-checkbox>
-            <label for="remember">Se souvenir de moi</label>
-          </div>
-  
-          <p-button type="submit" label="Connexion" [loading]="loading" class="mt-2"></p-button>
+  <p-card>
+    <h2>Connexion</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="p-fluid">
+        <!-- Email -->
+        <div class="field">
+          <label for="email">Email</label>
+          <input pInputText id="email" formControlName="email" />
+          <small *ngIf="submitted && f['email'].errors" class="p-error">
+            {{ f['email'].errors['required'] ? 'Email requis.' : 
+               (f['email'].errors['email'] ? 'Email invalide.' : '') }}
+          </small>
         </div>
-      </form>
-    </p-card>
-  </div>
-  
+
+        <!-- Mot de passe -->
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <input pInputText id="password" type="password" formControlName="password" />
+          <small *ngIf="submitted && f['password'].errors" class="p-error">
+            {{ f['password'].errors['required'] ? 'Mot de passe requis.' : '' }}
+          </small>
+        </div>
+
+        <!-- Se souvenir -->
+        <div class="field-checkbox">
+          <p-checkbox binary="true" formControlName="remember" inputId="remember"></p-checkbox>
+          <label for="remember">Se souvenir de moi</label>
+        </div>
+
+        <!-- Bouton -->
+        <p-button type="submit" label="Connexion" [loading]="loading" class="mt-2"></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
