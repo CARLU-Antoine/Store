@@ -263,3 +263,66 @@ button{
       font-size: 12px;
   }
 }
+
+
+::ng-deep .container-card-articles-panier {
+  background-color: whitesmoke;
+  color: #333;
+  padding: 1rem;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Ligne horizontale pour chaque article */
+::ng-deep .content-article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Image produit */
+img {
+  width: 13vh;
+  height: 13vh;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+::ng-deep .custom-sidebar {
+  width: 600px !important;
+  background-color: whitesmoke;
+  color: #333;
+  padding: 1rem;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+}
+
+/* Input prix */
+.content-article input {
+  width: 120px;
+  background-color: whitesmoke;
+  color: #333;
+}
+
+
+/* Bouton supprimer */
+.btn-delete-article-panier {
+  cursor: pointer;
+  background-color: #e53935;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Icône dans bouton */
+svg {
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
