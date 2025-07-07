@@ -1,4 +1,7 @@
 import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-SRP5SK33.js";
+import {
   AutoFocus
 } from "./chunk-QWICQN2D.js";
 import "./chunk-5G7WYC4N.js";
@@ -12,9 +15,6 @@ import {
 import {
   BaseStyle
 } from "./chunk-MXXMQYGT.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-SRP5SK33.js";
 import {
   PrimeTemplate,
   SharedModule,
