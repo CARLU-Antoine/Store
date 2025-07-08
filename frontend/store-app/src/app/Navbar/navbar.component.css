@@ -63,6 +63,7 @@
 button{
   background:none;
   border: none;
+  cursor: pointer;
 }
 .search-button {
   position: absolute;
@@ -291,7 +292,7 @@ img {
 }
 
 ::ng-deep .custom-sidebar {
-  width: 600px !important;
+  width: 700px !important;
   background-color: whitesmoke;
   color: #333;
   padding: 1rem;
@@ -301,7 +302,7 @@ img {
 
 /* Input prix */
 .content-article input {
-  width: 120px;
+  width: 75px;
   background-color: whitesmoke;
   color: #333;
 }

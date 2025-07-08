@@ -116,15 +116,16 @@
               
               <h3>{{ articleCourant.name }}</h3>
 
-              <p>{{ articleCourant.price }}</p>
+              <p>{{ articleCourant.price }}€</p>
 
               <input 
                 pInputText 
                 id="price" 
                 type="number" 
-                step="0.01" 
+                step="1" 
                 min="0"
                 [value]="articleCourant.quantite"
+                (change)="modifierQuantite(articleCourant.id, $event)"
               />
 
               <button class="btn-delete-article-panier" (click)="supprimerArticlePanier(articleCourant.id)">

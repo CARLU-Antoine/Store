@@ -64,6 +64,24 @@ export class NavbarComponent {
     this.articlesPanier = this.articlesPanier.filter(article => article.id !== id);
   }
 
+
+  modifierQuantite(id: number, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const nouvelleQuantite = Number(input.value);
+
+    const article = this.articlesPanier.find(article => article.id === id);
+    if (article) {
+
+       article.quantite = nouvelleQuantite;
+
+      this.totalPanier = this.articlesPanier.reduce(
+        (total, article) => total + (article.price * article.quantite),
+        0
+      );
+    }
+  }
+
+
   validerPanier(): void { 
     console.log('Panier validé avec succès !');
     this.articlesPanier = [];
