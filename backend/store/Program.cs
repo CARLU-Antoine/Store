@@ -1,28 +1,33 @@
+using Microsoft.EntityFrameworkCore;
+using store.Data;
 using store.Services;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add DbContext PostgreSQL (modifie la connection string selon ta config)
+builder.Services.AddDbContext<StoreDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Ajout des contrôleurs
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IProductImageService, ProductImageService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
-// Configuration CORS
+
+// CORS
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:4200")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
-        });
+    options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
 
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

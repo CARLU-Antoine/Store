@@ -60,14 +60,12 @@ export class FicheProduitComponent implements OnInit {
   @Input() duration: string = "2 mois (75g)";
 
   @Input() variants: Variant[] = [
-    { name: 'FLEUR DE COTON', color: '#87CEEB', selected: false },
+    { name: 'FLEUR DE COTON', color: '#90EE90', selected: false },
     { name: 'LAIT D\'AMANDE', color: '#90EE90', selected: true }
   ];
 
   @Input() price: number = 10.90;
   @Input() madeInFrance: boolean = true;
-
-
 
   @Input() productImages: ProductImage[] = [];
 
