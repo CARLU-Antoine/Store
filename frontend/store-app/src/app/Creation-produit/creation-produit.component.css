@@ -26,6 +26,7 @@
     border-radius: 16px;
     overflow: hidden;
   }
+ 
   
 
   .container-creation-produit p-card .p-card-body,
@@ -188,8 +189,8 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-
 }
+
 
 
 
