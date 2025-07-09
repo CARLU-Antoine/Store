@@ -1,7 +1,4 @@
 import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-SRP5SK33.js";
-import {
   AutoFocus
 } from "./chunk-QWICQN2D.js";
 import "./chunk-5G7WYC4N.js";
@@ -9,6 +6,9 @@ import {
   StarFillIcon,
   StarIcon
 } from "./chunk-OXDI7ILA.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-SRP5SK33.js";
 import {
   BaseComponent
 } from "./chunk-B3SRKIQB.js";

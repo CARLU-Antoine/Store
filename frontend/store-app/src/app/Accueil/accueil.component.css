@@ -41,14 +41,7 @@
     font-weight: 300;
   }
   
-  /* Galerie principale */
-  .main-gallery {
-    margin-bottom: 4rem;
-    background: white;
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  }
+ 
   
   .gallery-item {
     position: relative;
@@ -236,9 +229,7 @@
       gap: 1rem;
     }
     
-    .main-gallery {
-      padding: 1rem;
-    }
+
   }
   
   @media (max-width: 480px) {
@@ -314,3 +305,14 @@
     font-size: 0.75rem;
     padding: 0.4rem 0.8rem;
   }
+
+
+
+::ng-deep .card-custom {
+  width: 700px !important;
+  background-color: whitesmoke;
+  color: #333;
+  padding: 1rem;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+}
