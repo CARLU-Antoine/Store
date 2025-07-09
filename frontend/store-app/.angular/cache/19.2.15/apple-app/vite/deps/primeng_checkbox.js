@@ -4,9 +4,9 @@ import {
   CheckboxClasses,
   CheckboxModule,
   CheckboxStyle
-} from "./chunk-C7IF7XQN.js";
-import "./chunk-SRP5SK33.js";
+} from "./chunk-Y5O2XH5D.js";
 import "./chunk-OXDI7ILA.js";
+import "./chunk-SRP5SK33.js";
 import "./chunk-B3SRKIQB.js";
 import "./chunk-MXXMQYGT.js";
 import "./chunk-73OHT33M.js";

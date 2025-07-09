@@ -7,7 +7,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CardModule } from 'primeng/card';
 import { GalleriaModule } from 'primeng/galleria';
-import { UploadService } from '../Services/upload-service';
 import { FicheProduitComponent } from '../Fiche-produit/fiche-produit.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
@@ -63,7 +62,7 @@ export class CreationProduitComponent {
   productDescription: string | undefined;
   productDetails: string | undefined;
 
-  constructor(private fb: FormBuilder, private uploadService: UploadService) {
+  constructor(private fb: FormBuilder) {
     this.productForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       petiteDescription: ['', [Validators.required, Validators.minLength(10)]],
@@ -95,27 +94,7 @@ export class CreationProduitComponent {
     this.loading = true;
     const productId = this.productForm.value.title;
 
-    this.uploadService.uploadImages(productId, this.selectedFiles).subscribe({
-      next: (res) => {
-        alert(`Produit créé et images envoyées avec succès avec l'id ${productId}`);
 
-        this.uploadService.getModelById(productId).subscribe({
-          next: (model) => {
-            alert(`Modèle récupéré avec l'id ${productId} : ${JSON.stringify(model)}`);
-          },
-          error: (err) => {
-            console.error('Erreur récupération modèle:', err);
-          }
-        });
-
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Erreur upload', err);
-        alert('Erreur lors de l’upload');
-        this.loading = false;
-      }
-    });
   }
 
   galleriaClass(): string {

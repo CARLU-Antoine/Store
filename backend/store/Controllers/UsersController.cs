@@ -19,7 +19,18 @@ namespace store.Controllers
             _orderService = orderService;
         }
 
-        // GET api/users/{userId}/orders
+
+        [HttpGet("{userId:int}")]
+        public async Task<ActionResult<User>> GetUserById(int userId)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
+
+  
         [HttpGet("{userId:int}/orders")]
         public async Task<ActionResult<List<Order>>> GetOrdersByUser(int userId)
         {
@@ -30,7 +41,38 @@ namespace store.Controllers
             return Ok(orders);
         }
 
-        // POST api/users/{userId}/orders
+
+        [HttpPost("creerUtilisateur")]
+        public async Task<IActionResult> CreateUtilisateur([FromBody] User user)
+        {
+            if (user == null)
+                return BadRequest("Utilisateur invalide.");
+
+            var createdUser = await _userService.CreateUserAsync(user);
+
+            return CreatedAtAction(nameof(GetUserById), new { userId = createdUser.Id }, createdUser);
+        }
+
+
+        [HttpPost("connexionUtilisateur")]
+        public async Task<IActionResult> ConnexionUtilisateur([FromBody] User user)
+        {
+            if (user == null)
+                return BadRequest("Utilisateur invalide.");
+
+            try
+            {
+                var createdUser = await _userService.ConnexionUserAsync(user);
+                return CreatedAtAction(nameof(GetUserById), new { userId = createdUser.Id }, createdUser);
+            }
+            catch (Exception ex)
+            {
+                // Tu peux créer une exception personnalisée pour être plus précis si besoin
+                return Conflict(new { message = ex.Message });
+            }
+        }
+
+
         [HttpPost("{userId:int}/orders")]
         public async Task<IActionResult> CreateOrderForUser(int userId, [FromBody] Order order)
         {
@@ -38,10 +80,12 @@ namespace store.Controllers
                 return BadRequest("Commande invalide.");
 
             var user = await _userService.GetUserByIdAsync(userId);
-            if (user == null) return NotFound();
+            if (user == null)
+                return NotFound();
 
             order.UserId = userId;
             var createdOrder = await _orderService.CreateOrderAsync(order);
+
             return CreatedAtAction(nameof(GetOrdersByUser), new { userId = userId }, createdOrder);
         }
     }

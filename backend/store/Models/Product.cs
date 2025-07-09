@@ -13,14 +13,6 @@ namespace store.Models
         public ICollection<ProductImage> Images { get; set; } = new List<ProductImage>();
     }
 
-    public class Theme
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-
-        // Navigation property
-        public ICollection<ProductTheme> ProductThemes { get; set; } = new List<ProductTheme>();
-    }
 
     // Table de liaison N-N produit <-> thème
     public class ProductTheme
@@ -43,24 +35,4 @@ namespace store.Models
         public string? ImageMime { get; set; }
     }
 
-    public class User
-    {
-        public int Id { get; set; }
-        public string Username { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
-
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
-    }
-
-    public class Order
-    {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; } = null!;
-
-        public DateTime OrderDate { get; set; }
-        public decimal Total { get; set; }
-    }
 }

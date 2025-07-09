@@ -5,15 +5,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add DbContext PostgreSQL (modifie la connection string selon ta config)
+// Add DbContext PostgreSQL
 builder.Services.AddDbContext<StoreDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Ajout des contrôleurs
 builder.Services.AddControllers();
 
+// Enregistrement des services
 builder.Services.AddScoped<IProductService, ProductService>();
-
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 // CORS
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -40,9 +42,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(MyAllowSpecificOrigins);
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

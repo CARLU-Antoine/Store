@@ -10,7 +10,6 @@
   </div>
 
   <!-- Galerie principale PrimeNG -->
-  <div class="main-gallery">
     <p-galleria 
       [value]="photos" 
       [responsiveOptions]="responsiveOptions"
@@ -28,7 +27,7 @@
       <!-- Template pour l'image principale -->
       <ng-template pTemplate="item" let-item>
         <div class="gallery-item">
-          <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; height: 500px; object-fit: cover;" />
+          <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; height: 70vh; object-fit: cover;" />
           <div class="image-overlay">
             <div class="image-info">
               <h3>{{item.title}}</h3>
@@ -47,7 +46,6 @@
       </ng-template>
 
     </p-galleria>
-  </div>
 
   <!-- Grille de prévisualisation -->
   <div class="preview-grid">
@@ -63,7 +61,7 @@
         *ngFor="let photo of photos; let i = index" 
         class="photo-card"
         (click)="openGallery(i)">
-        <p-card [style]="{'height': '100%'}">
+        <p-card styleClass="card-custom">
           <ng-template pTemplate="header">
             <div class="card-image-container">
               <img 
