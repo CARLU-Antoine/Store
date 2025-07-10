@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 
 export interface Produit {
+  id?: number; 
   title: string;
   price: number;
   petiteDescription: string;
@@ -24,5 +25,8 @@ export class ListeProduitsService {
 
   getProduits(): Observable<any> {
     return this.http.get(this.apiUrl);
+  }
+  getProduitById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 }

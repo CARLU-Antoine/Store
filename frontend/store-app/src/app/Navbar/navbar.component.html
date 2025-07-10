@@ -112,9 +112,11 @@
             styleClass="container-card-articles-panier">
 
             <div class="content-article">
-              <img [src]="articleCourant.photoSrc" alt="Article" />
+              <img 
+                [src]="articleCourant.image" 
+              />
               
-              <h3>{{ articleCourant.name }}</h3>
+              <h3 class="titre-article">{{ articleCourant.name }}</h3>
 
               <p>{{ articleCourant.price }}€</p>
 
@@ -124,7 +126,7 @@
                 type="number" 
                 step="1" 
                 min="0"
-                [value]="articleCourant.quantite"
+                [value]="articleCourant.quantity"
                 (change)="modifierQuantite(articleCourant.id, $event)"
               />
 

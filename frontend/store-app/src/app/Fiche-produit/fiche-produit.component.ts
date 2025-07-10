@@ -11,6 +11,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { DividerModule } from 'primeng/divider';
+import { ListeProduitsService } from '../Services/Produits/liste-produits.service';
+import { ActivatedRoute } from '@angular/router';
 
 interface ProductImage {
   itemImageSrc: string;
@@ -45,28 +47,24 @@ interface Variant {
   styleUrls: ['./fiche-produit.component.css']
 })
 export class FicheProduitComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private listeProduitsService: ListeProduitsService
+  ) {}
+
   @Input() showNavbar: boolean = true;
 
-  @Input() productName: string = "Shampoing solide doux Lait d'Amande";
-  @Input() productDescription: string = "Mousse onctueuse, cheveux doux et brillants";
-  @Input() productDetails: string = "Un shampoing solide pour des cheveux doux et brillants grâce à une formule onctueuse, enrichie en huiles végétales.";
-
-  @Input() rating: number = 5;
-  @Input() reviewCount: number = 2839;
-
+  @Input() productName: string = '';
+  @Input() productDescription: string = '';
+  @Input() productDetails: string = '';
+  @Input() rating: number = 0;
+  @Input() reviewCount: number = 0;
   @Input() productThemes: any[] = [];
-  
-  @Input() naturalPercentage: number = 94;
-  @Input() duration: string = "2 mois (75g)";
-
-  @Input() variants: Variant[] = [
-    { name: 'FLEUR DE COTON', color: '#90EE90', selected: false },
-    { name: 'LAIT D\'AMANDE', color: '#90EE90', selected: true }
-  ];
-
-  @Input() price: number = 10.90;
-  @Input() madeInFrance: boolean = true;
-
+  @Input() naturalPercentage: number = 0;
+  @Input() duration: string = '';
+  @Input() variants: Variant[] = [];
+  @Input() price: number = 0;
+  @Input() madeInFrance: boolean = false;
   @Input() productImages: ProductImage[] = [];
 
   displayGallery: boolean = false;
@@ -74,35 +72,51 @@ export class FicheProduitComponent implements OnInit {
   responsiveOptions: any[] = [];
 
   ngOnInit() {
-    if (this.productImages.length === 0) {
-      this.initializeProductImages();
-    }
-    this.setupResponsiveOptions();
-  }
+    const idParam = this.route.snapshot.paramMap.get('id');
+    const produitId = idParam ? +idParam : null;
 
-  initializeProductImages() {
-    this.productImages = [
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&h=1000&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=150&h=150&fit=crop',
-        alt: 'Shampoing solide principal'
-      },
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=1000&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=150&h=150&fit=crop',
-        alt: 'Vue détaillée du produit'
-      },
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=800&h=1000&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=150&h=150&fit=crop',
-        alt: 'Produit en utilisation'
-      },
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&h=1000&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=150&h=150&fit=crop',
-        alt: 'Emballage du produit'
-      }
-    ];
+    if (produitId !== null) {
+      this.listeProduitsService.getProduitById(produitId).subscribe({
+        next: (produit) => {
+
+          this.productName = produit.name || '';
+          this.productDescription = produit.shortDescription  || '';
+          this.productDetails = produit.descriptionLongue || '';
+          this.price = produit.price || 0;
+          this.variants = produit.variants || [];
+          this.productThemes = produit.themes || [];
+          this.naturalPercentage = produit.pourcentageNaturel || 0;
+          this.duration = produit.duree || '';
+          this.madeInFrance = produit.origine === 'France';
+
+
+          this.productImages = (produit.images || [])
+            .filter((img: any) => img.imageData && img.imageMime) // on ne garde que les images valides
+            .map((img: any) => {
+              return {
+                itemImageSrc: `data:${img.imageMime};base64,${img.imageData}`,
+                thumbnailImageSrc: `data:${img.imageMime};base64,${img.imageData}`,
+                alt: img.imageName || 'Image produit'
+              };
+            });
+
+          // Si aucune image valide, on affiche une image par défaut
+          if (this.productImages.length === 0) {
+            this.productImages.push({
+              itemImageSrc: 'https://via.placeholder.com/1200x800?text=Pas+d\'image',
+              thumbnailImageSrc: 'https://via.placeholder.com/150x100?text=Pas+d\'image',
+              alt: 'Aucune image disponible'
+            });
+          }
+
+        },
+        error: (err) => {
+          console.error('Erreur lors du chargement du produit à partir de son id ', err);
+        }
+      });
+    }
+
+    this.setupResponsiveOptions();
   }
 
   setupResponsiveOptions() {
@@ -124,10 +138,38 @@ export class FicheProduitComponent implements OnInit {
     });
   }
 
-  addToCart() {
-    console.log('Produit ajouté au panier');
-    // Ajouter ta logique d'ajout au panier ici
+addToCart() {
+  const selectedVariant = this.getSelectedVariant();
+
+
+  const productToAdd = {
+    name: this.productName,
+    price: this.price,
+    variant: selectedVariant ? selectedVariant.name : null,
+    quantity: 1,
+    image: this.productImages.length > 0 ? this.productImages[0].thumbnailImageSrc : '',
+    id: this.route.snapshot.paramMap.get('id')
+  };
+
+  const existingCart = localStorage.getItem('cart');
+  let cart = existingCart ? JSON.parse(existingCart) : [];
+
+  // Si le produit avec la même variante existe déjà dans le panier, on augmente la quantité
+  const existingItemIndex = cart.findIndex((item: any) =>
+    item.id === productToAdd.id && item.variant === productToAdd.variant
+  );
+
+  if (existingItemIndex !== -1) {
+    cart[existingItemIndex].quantity += 1;
+  } else {
+    cart.push(productToAdd);
   }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  console.log('Produit ajouté au panier :', productToAdd);
+}
+
 
   getSelectedVariant(): Variant | undefined {
     return this.variants.find(variant => variant.selected);
