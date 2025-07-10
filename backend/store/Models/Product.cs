@@ -1,4 +1,6 @@
+using System.Text.Json.Serialization;
 namespace store.Models
+
 {
     public class Product
     {
@@ -28,6 +30,8 @@ namespace store.Models
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
+
+        [JsonIgnore]   // Evite la boucle infinie
         public Product Product { get; set; } = null!;
 
         public byte[] ImageData { get; set; } = Array.Empty<byte>();

@@ -9,5 +9,6 @@ namespace store.Services
         Task<Product> CreateProductAsync(Product product);
         Task<List<Product>> GetAllProductsAsync();
         Task<Product> GetProductByIdAsync(string productId);
+        Task<Theme?> GetThemeByNameAsync(string themeName);
     }
 }

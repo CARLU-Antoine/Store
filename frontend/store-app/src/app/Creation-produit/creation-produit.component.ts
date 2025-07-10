@@ -11,6 +11,7 @@ import { FicheProduitComponent } from '../Fiche-produit/fiche-produit.component'
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
+import { CreationProduitService } from '../Services/Produits/creation-produit.service';
 
 @Component({
   selector: 'app-creation-produit',
@@ -62,13 +63,13 @@ export class CreationProduitComponent {
   productDescription: string | undefined;
   productDetails: string | undefined;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private creationProduitService: CreationProduitService) {
     this.productForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       petiteDescription: ['', [Validators.required, Validators.minLength(10)]],
       price: ['', [Validators.required, Validators.min(0.01)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      themes: [[]]
+      themes: [[]],
     });
 
     this.productForm.valueChanges.subscribe(values => {
@@ -77,7 +78,6 @@ export class CreationProduitComponent {
       this.productDescription = values.petiteDescription;
       this.productDetails = values.description;
       this.themeSelected = values.themes || [];
-      this.selectedFiles = values.selectedFiles || [];
     });
   }
 
@@ -87,15 +87,6 @@ export class CreationProduitComponent {
 
 
 
-  onSubmit() {
-    this.submitted = true;
-    if (this.productForm.invalid) return;
-
-    this.loading = true;
-    const productId = this.productForm.value.title;
-
-
-  }
 
   galleriaClass(): string {
     return this.fullscreen ? 'fullscreen' : '';
@@ -195,4 +186,42 @@ export class CreationProduitComponent {
     }
 
   }
+
+  creerProduit() {
+    console.log("Création du produit...");
+
+    this.submitted = true;
+
+    console.log("Formulaire soumis :", this.productForm.value);
+
+    if (this.productForm.invalid) return;
+
+    this.loading = true;
+
+    const { title, price, petiteDescription, description, themes } = this.productForm.value;
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('price', price.toString());
+    formData.append('petiteDescription', petiteDescription);
+    formData.append('description', description);
+    formData.append('themes', JSON.stringify(themes));
+
+    this.selectedFiles.forEach(file => {
+      formData.append('images', file);
+    });
+
+    this.creationProduitService.creerProduit(formData).subscribe({
+      next: (res: any) => {
+        alert(`Produit créé avec succès : ${title}`);
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error(err);
+        alert("Erreur lors de la création du produit");
+        this.loading = false;
+      }
+    });
+  }
+
 }
