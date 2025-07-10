@@ -8,19 +8,22 @@ import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { ListeProduitsService, Produit } from '../Services/Produits/liste-produits.service';
 
 interface Photo {
   itemImageSrc: string;
   thumbnailImageSrc: string;
   alt: string;
   title: string;
-  description?: string;
-  category?: string;
-  date?: string;
+  description: string;
+  category: string;
+  date: string;
+  produitOriginal: Produit;
 }
 
 @Component({
   selector: 'app-fiche-produit',
+  standalone: true,
   imports: [
     NavbarComponent,
     CommonModule,
@@ -32,113 +35,74 @@ interface Photo {
     RippleModule,
     TooltipModule
   ],
-  standalone: true,
   templateUrl: './accueil.component.html',
   styleUrls: ['./accueil.component.css']
 })
 export class AccueilComponent implements OnInit {
+  produits: Produit[] = [];
   photos: Photo[] = [];
-  displayCustom: boolean = false;
-  activeIndex: number = 0;
+  displayCustom = false;
+  activeIndex = 0;
   responsiveOptions: any[] = [];
 
-  ngOnInit() {
-    this.initializePhotos();
+  constructor(private listeProduitsService: ListeProduitsService) {}
+
+  ngOnInit(): void {
     this.setupResponsiveOptions();
+    this.initializeProduits();
   }
 
-  initializePhotos() {
-    this.photos = [
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop',
-        alt: 'Montagne au coucher du soleil',
-        title: 'Coucher de soleil en montagne',
-        description: 'Une vue magnifique sur les montagnes au coucher du soleil',
-        category: 'Nature',
-        date: '2024-01-15'
+  initializeProduits(): void {
+    this.listeProduitsService.getProduits().subscribe({
+      next: (produits: Produit[]) => {
+        this.produits = produits;
+        this.transformProduitsEnPhotos(produits);
       },
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=1200&h=800&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=300&h=200&fit=crop',
-        alt: 'Lac paisible',
-        title: 'Lac de montagne',
-        description: 'Un lac crystal clair entouré de forêts verdoyantes',
-        category: 'Nature',
-        date: '2024-01-20'
-      },
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=200&fit=crop',
-        alt: 'Forêt dense',
-        title: 'Forêt mystérieuse',
-        description: 'Une forêt dense avec des rayons de soleil filtrant',
-        category: 'Nature',
-        date: '2024-02-01'
-      },
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=800&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=200&fit=crop',
-        alt: 'Plage tropicale',
-        title: 'Plage paradisiaque',
-        description: 'Une plage de sable blanc avec des eaux turquoise',
-        category: 'Plage',
-        date: '2024-02-10'
-      },
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop',
-        alt: 'Ville la nuit',
-        title: 'Skyline urbain',
-        description: 'Les lumières de la ville scintillent dans la nuit',
-        category: 'Urbain',
-        date: '2024-02-15'
-      },
-      {
-        itemImageSrc: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=1200&h=800&fit=crop',
-        thumbnailImageSrc: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300&h=200&fit=crop',
-        alt: 'Champ de fleurs',
-        title: 'Prairie fleurie',
-        description: 'Un champ coloré de fleurs sauvages au printemps',
-        category: 'Nature',
-        date: '2024-03-01'
+      error: (err) => {
+        console.error("Erreur lors du chargement des produits :", err);
       }
-    ];
+    });
   }
 
-  setupResponsiveOptions() {
-    this.responsiveOptions = [
-      {
-        breakpoint: '1024px',
-        numVisible: 5
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 3
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1
+  transformProduitsEnPhotos(produits: Produit[]): void {
+    this.photos = produits.map(produit => {
+
+
+      let imageUrl = 'https://via.placeholder.com/1200x800?text=Pas+d\'image';
+      
+      if (produit.images && produit.images.length > 0) {
+        const firstImage = produit.images[0];
+        
+
+        if ((firstImage as any).imageData && (firstImage as any).imageMime) {
+          imageUrl = `data:${(firstImage as any).imageMime};base64,${(firstImage as any).imageData}`;
+        }
+
+        else if (typeof firstImage === 'string') {
+          imageUrl = `data:image/png;base64,${firstImage}`;
+        }
       }
-    ];
+
+      const categoryName = (produit as any).productThemes && (produit as any).productThemes.length > 0
+        ? (produit as any).productThemes[0].theme.name
+        : 'Inconnu';
+
+      return {
+        itemImageSrc: imageUrl,
+        thumbnailImageSrc: imageUrl,
+        alt: (produit as any).name || produit.title, 
+        title: (produit as any).name || produit.title,
+        description: (produit as any).shortDescription || produit.petiteDescription,
+        category: categoryName,
+        date: new Date().toISOString(),
+        produitOriginal: produit
+      };
+    });
   }
 
-  openGallery(index: number) {
+  openGallery(index: number): void {
     this.activeIndex = index;
     this.displayCustom = true;
-  }
-
-  getCategoryColor(category: string): string {
-    switch (category) {
-      case 'Nature':
-        return 'success';
-      case 'Plage':
-        return 'info';
-      case 'Urbain':
-        return 'warning';
-      default:
-        return 'primary';
-    }
   }
 
   formatDate(dateString: string): string {
@@ -148,5 +112,24 @@ export class AccueilComponent implements OnInit {
       month: 'long',
       day: 'numeric'
     });
+  }
+
+  getCategoryColor(category: string): string {
+    const categoryMap: Record<string, string> = {
+      'Nature': 'success',
+      'Plage': 'info',
+      'Urbain': 'warning',
+      'Inconnu': 'secondary',
+      'default': 'help'
+    };
+    return categoryMap[category] || 'contrast';
+  }
+
+  setupResponsiveOptions(): void {
+    this.responsiveOptions = [
+      { breakpoint: '1024px', numVisible: 5 },
+      { breakpoint: '768px', numVisible: 3 },
+      { breakpoint: '560px', numVisible: 1 }
+    ];
   }
 }

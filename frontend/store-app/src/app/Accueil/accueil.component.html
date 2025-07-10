@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <div class="gallery-container">
   <div class="gallery-header">
     <h1 class="gallery-title">
@@ -9,43 +8,41 @@
     <p class="gallery-subtitle">Découvrez notre univers</p>
   </div>
 
-  <!-- Galerie principale PrimeNG -->
-    <p-galleria 
-      [value]="photos" 
-      [responsiveOptions]="responsiveOptions"
-      [containerStyle]="{'max-width': '100%'}"
-      [numVisible]="5"
-      [circular]="true"
-      [fullScreen]="true"
-      [showItemNavigators]="true"
-      [showThumbnails]="true"
-      [showItemNavigatorsOnHover]="true"
-      [showIndicators]="true"
-      [(visible)]="displayCustom"
-      [(activeIndex)]="activeIndex">
-      
-      <!-- Template pour l'image principale -->
-      <ng-template pTemplate="item" let-item>
-        <div class="gallery-item">
-          <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; height: 70vh; object-fit: cover;" />
-          <div class="image-overlay">
-            <div class="image-info">
-              <h3>{{item.title}}</h3>
-              <p>{{item.description}}</p>
-              <div class="image-meta">
-                <p-tag 
-                  [value]="item.category" 
-                  [severity]="getCategoryColor(item.category)"
-                  [rounded]="true">
-                </p-tag>
-                <span class="date">{{ formatDate(item.date) }}</span>
-              </div>
+  <!-- Galerie principale -->
+  <p-galleria
+    [value]="photos"
+    [responsiveOptions]="responsiveOptions"
+    [containerStyle]="{'max-width': '100%'}"
+    [numVisible]="5"
+    [circular]="true"
+    [fullScreen]="true"
+    [showItemNavigators]="true"
+    [showThumbnails]="true"
+    [showItemNavigatorsOnHover]="true"
+    [showIndicators]="true"
+    [(visible)]="displayCustom"
+    [(activeIndex)]="activeIndex">
+    
+    <ng-template pTemplate="item" let-item>
+      <div class="gallery-item">
+        <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%; height: 70vh; object-fit: cover;" />
+        <div class="image-overlay">
+          <div class="image-info">
+            <h3>{{item.title}}</h3>
+            <p>{{item.description}}</p>
+            <div class="image-meta">
+              <p-tag
+                [value]="item.category"
+                [severity]="getCategoryColor(item.category)"
+                [rounded]="true">
+              </p-tag>
+              <span class="date">{{ formatDate(item.date) }}</span>
             </div>
           </div>
         </div>
-      </ng-template>
-
-    </p-galleria>
+      </div>
+    </ng-template>
+  </p-galleria>
 
   <!-- Grille de prévisualisation -->
   <div class="preview-grid">
@@ -55,24 +52,23 @@
         Aperçu de la collection
       </h2>
     </div>
-    
     <div class="photo-grid">
-      <div 
-        *ngFor="let photo of photos; let i = index" 
+      <div
+        *ngFor="let photo of photos; let i = index"
         class="photo-card"
         (click)="openGallery(i)">
         <p-card styleClass="card-custom">
           <ng-template pTemplate="header">
             <div class="card-image-container">
-              <img 
-                [src]="photo.thumbnailImageSrc" 
+              <img
+                [src]="photo.thumbnailImageSrc"
                 [alt]="photo.alt"
                 class="card-image"
                 pTooltip="Cliquez pour voir en grand"
                 tooltipPosition="top" />
               <div class="card-overlay">
-                <p-button 
-                  icon="pi pi-eye" 
+                <p-button
+                  icon="pi pi-eye"
                   [rounded]="true"
                   [text]="true"
                   severity="contrast"
@@ -82,18 +78,17 @@
               </div>
             </div>
           </ng-template>
-          
           <ng-template pTemplate="content">
             <div class="card-content">
               <h4>{{photo.title}}</h4>
               <p class="photo-description">{{photo.description}}</p>
               <div class="card-footer">
-                <p-tag 
-                  [value]="photo.category" 
-                  [severity]="getCategoryColor(photo.category ?? 'default')"
+                <p-tag
+                  [value]="photo.category"
+                  [severity]="getCategoryColor(photo.category)"
                   [rounded]="true">
                 </p-tag>
-                <small class="date-small">{{ formatDate(photo.date ?? '1970-01-01') }}</small>
+                <small class="date-small">{{ formatDate(photo.date) }}</small>
               </div>
             </div>
           </ng-template>

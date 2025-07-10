@@ -3,7 +3,7 @@
 <div class="container-creation-affichage">
   <div class="container-creation-produit">
     <p-card>
-      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="productForm" (ngSubmit)="creerProduit()">
         <div class="p-fluid">
           
           <!-- Titre du produit -->
@@ -139,10 +139,11 @@
             <small class="text-gray-500">{{ images.length }} image(s) sélectionnée(s)</small>
           </div>
 
+          
           <!-- Bouton Soumettre -->
           <p-button 
             type="submit" 
-            label="Vendre le produit" 
+            label="Creer le produit" 
             [loading]="loading" 
             [disabled]="images.length === 0"
             class="mt-2">
