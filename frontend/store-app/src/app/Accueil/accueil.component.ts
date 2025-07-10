@@ -9,6 +9,7 @@ import { TagModule } from 'primeng/tag';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { ListeProduitsService, Produit } from '../Services/Produits/liste-produits.service';
+import { Router } from '@angular/router';
 
 interface Photo {
   itemImageSrc: string;
@@ -45,7 +46,8 @@ export class AccueilComponent implements OnInit {
   activeIndex = 0;
   responsiveOptions: any[] = [];
 
-  constructor(private listeProduitsService: ListeProduitsService) {}
+
+  constructor(private listeProduitsService: ListeProduitsService,private router: Router) {}
 
   ngOnInit(): void {
     this.setupResponsiveOptions();
@@ -100,9 +102,14 @@ export class AccueilComponent implements OnInit {
     });
   }
 
-  openGallery(index: number): void {
-    this.activeIndex = index;
-    this.displayCustom = true;
+  goToFicheProduit(id: number) {
+    this.router.navigate(['/fiche-produit', id]);
+  }
+
+
+  visualiserProduit(index: number): void {
+    const produitId = this.produits[index]?.id || 0;
+    this.goToFicheProduit(produitId);
   }
 
   formatDate(dateString: string): string {

@@ -326,4 +326,8 @@ svg {
   height: 24px;
   pointer-events: none;
 }
-
+.titre-article {
+  width: 250px;
+  white-space: normal; 
+  word-wrap: break-word;
+}
